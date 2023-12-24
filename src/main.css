@@ -1,0 +1,107 @@
+/*
+  elm-hot creates an additional div wrapper around the app to make HMR possible.
+  This could break styling in development mode if you are using Elm UI.
+
+  More context in the issue:
+    https://github.com/halfzebra/create-elm-app/issues/320
+*/
+[data-elm-hot="true"] {
+  height: inherit;
+}
+
+body {
+  font-family: 'Source Sans Pro', 'Trebuchet MS', 'Lucida Grande', 'Bitstream Vera Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  text-align: center;
+  color: #293c4b;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+img {
+  margin: 20px 0;
+  max-width: 200px;
+}
+.page-container {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    pointer-events: none;
+
+}
+.top-bottom {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+}
+.top-container {
+    height: 50vh;
+    position: relative;
+    overflow: hidden;
+}
+.tree {
+    position: absolute;
+    z-index: 1000;
+    max-width: 80px;
+    top: 468px;
+    left: 195px;
+}
+
+.cal-container {
+    position: absolute;
+    top: -351px;
+}
+.bottom-container {
+    overflow: hidden;
+    height: 50vh;
+    display: flex;
+}
+.bottom-half {
+    width: 75%;
+    height: calc(100% - 16px);
+    background-size: cover; /* Ensures the image covers the entire container */
+    background-position: center; /* Centers the image within the container */
+    transition: transform 0.5s; /* Add a smooth transition effect for the transform property */
+    border-radius: 16px;
+}
+.moana {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.7);
+    margin: 8px;
+}
+.quote {
+    color: white; /* Text color */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8),
+                 -2px -2px 2px rgba(0, 0, 0, 0.8),
+                 0px 4px 2px rgba(0, 0, 0, 0.8),
+                 0px -4px 2px rgba(0, 0, 0, 0.8);
+
+}
+
+
+.time-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+}
+.time {
+    font-size: 80px;
+    color: black;
+}
+
+.blink {
+    animation: blink-animation 2s infinite;
+}
+@keyframes blink-animation {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
