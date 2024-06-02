@@ -211,7 +211,7 @@ aboluteTopOffset model =
             style "top" "-16px"
 
         secondRow =
-            style "top" "-154px"
+            style "top" "-132px"
 
         thirdRow =
             style "top" "-290px"
@@ -309,7 +309,7 @@ moanaWideBottom picAndTime =
 
 
 boys =
-    div [ class "boys", style "background-image" """url("boys4.png")""" ]
+    div [ class "boys", style "background-image" """url("maddie.png")""" ]
         []
 
 
