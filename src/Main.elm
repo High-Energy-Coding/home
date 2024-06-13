@@ -192,6 +192,7 @@ daytime model =
                         Animator.Css.xy { x = 0, y = 0 }
         ]
         [ class "bottom-container"
+        , style "background-image" """url("ooo.png")"""
         ]
       <|
         bottomContainer model
@@ -223,7 +224,7 @@ aboluteTopOffset model =
 
 
 bottomContainer model =
-    [ moanaWideBottom model.picAndTime, timeView model ]
+    [ timeView model ]
 
 
 to12Hour : Int -> Int
@@ -265,16 +266,7 @@ timeView model =
         minute =
             String.fromInt (Time.toMinute model.zone model.time) |> String.padLeft 2 '0'
     in
-    Animator.Css.div model.picAndTime
-        [ Animator.Css.transform <|
-            \state ->
-                case state of
-                    TimeOnLeft ->
-                        Animator.Css.xy { x = -815, y = 0 }
-
-                    TimeOnRight ->
-                        Animator.Css.xy { x = 0, y = 0 }
-        ]
+    div
         [ class "time-container"
         ]
         [ div [ class "time" ]
@@ -285,27 +277,8 @@ timeView model =
         ]
 
 
-moanaWideBottom picAndTime =
-    Animator.Css.div picAndTime
-        [ Animator.Css.transform <|
-            \state ->
-                case state of
-                    TimeOnLeft ->
-                        Animator.Css.xy
-                            { x = 275
-                            , y = 0
-                            }
-
-                    TimeOnRight ->
-                        Animator.Css.xy
-                            { x = 0
-                            , y = 0
-                            }
-        ]
-        [ class "picture bottom-half"
-        ]
-        [ boys
-        ]
+moanaWideBottom =
+    div [ class "picture bottom-half" ] [ boys ]
 
 
 boys =

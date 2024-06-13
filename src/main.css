@@ -67,6 +67,11 @@ img {
   overflow: hidden;
   height: 50vh;
   display: flex;
+  background-size: cover; /* Ensures the image covers the entire element */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-position: center; /* Centers the image in the element */
+  align-items: center;
+  justify-content: center;
 }
 .bottom-half {
   width: 75%;
@@ -122,11 +127,12 @@ img {
   font-size: 180px;
 }
 .time {
-  font-size: 180px;
-  color: black;
-  font-family: "Marck Script", cursive;
-  font-weight: 400;
+  font-size: 140px;
+  color: white;
+  font-family: "M PLUS 1p", sans-serif;
+  font-weight: 300;
   font-style: normal;
+  text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.65);
 }
 
 .blink {
