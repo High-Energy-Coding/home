@@ -7,8 +7,9 @@ import Browser
 import Date
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Iso8601
 import Task
-import Time
+import Time exposing (Month(..))
 
 
 
@@ -209,19 +210,53 @@ topContainer model =
 
 takesTimeandReturnsRow : Date.Date -> Int
 takesTimeandReturnsRow date =
+    let
+        zone =
+            Time.utc
+
+        isoString =
+            Date.toIsoString date
+
+        time =
+            case Iso8601.toTime isoString of
+                Result.Ok convertedTime ->
+                    convertedTime
+
+                Result.Err reason ->
+                    Time.millisToPosix 0
+    in
+    takesTimeandReturnsRowPrivate zone time
+
+
+takesTimeandReturnsRowPrivate : Time.Zone -> Time.Posix -> Int
+takesTimeandReturnsRowPrivate zone time =
     -- given a day
     -- what weekDay is the first day of that month
     -- from there, do math to get what row the given day should be on
     -- Get the Day of the Week for the First Day of the Month
     let
+        date =
+            Date.fromPosix zone time
+
+        year =
+            Date.year date
+
+        month =
+            Date.month date
+
+        day =
+            Date.day date
+
         firstDayOfMonth =
-            Date.fromCalendarDate year (Date.monthFromInt month |> Maybe.withDefault Date.Jan) 1
+            Date.fromCalendarDate year month 1
 
         firstWeekday =
             Date.weekday firstDayOfMonth
 
         firstWeekdayOffset =
-            weekdayOffset firstWeekday
+            weekdayOffset date
+
+        -- weekdayOffset firstWeekday
     in
     ((firstWeekdayOffset + day - 1) // 7) + 1
 
@@ -229,6 +264,11 @@ takesTimeandReturnsRow date =
 
 -- never 5th or 6th row.
 --
+
+
+weekdayOffset : Date.Date -> Int
+weekdayOffset date =
+    Date.weekdayNumber date
 
 
 type WhichRow
