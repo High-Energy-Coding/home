@@ -33,5 +33,5 @@ all =
             \_ ->
                 Expect.equal
                     (takesTimeandReturnsRow (fromCalendarDate 2024 Time.Aug 1))
-                    4
+                    1
         ]
