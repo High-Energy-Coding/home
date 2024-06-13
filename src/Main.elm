@@ -4,6 +4,7 @@ import Animator
 import Animator.Css
 import Animator.Inline
 import Browser
+import Date
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Task
@@ -206,13 +207,44 @@ topContainer model =
     ]
 
 
+takesTimeandReturnsRow : Date.Date -> Int
+takesTimeandReturnsRow date =
+    -- given a day
+    -- what weekDay is the first day of that month
+    -- from there, do math to get what row the given day should be on
+    -- Get the Day of the Week for the First Day of the Month
+    let
+        firstDayOfMonth =
+            Date.fromCalendarDate year (Date.monthFromInt month |> Maybe.withDefault Date.Jan) 1
+
+        firstWeekday =
+            Date.weekday firstDayOfMonth
+
+        firstWeekdayOffset =
+            weekdayOffset firstWeekday
+    in
+    ((firstWeekdayOffset + day - 1) // 7) + 1
+
+
+
+-- never 5th or 6th row.
+--
+
+
+type WhichRow
+    = FirstRow
+    | SecondRow
+    | ThirdRow
+    | FourthRow
+
+
 aboluteTopOffset model =
     let
         firstRow =
             style "top" "-16px"
 
         secondRow =
-            style "top" "-132px"
+            style "top" "-154px"
 
         thirdRow =
             style "top" "-290px"
@@ -282,7 +314,7 @@ moanaWideBottom =
 
 
 boys =
-    div [ class "boys", style "background-image" """url("maddie.png")""" ]
+    div [ class "boys", style "background-image" """url("boys4.png")""" ]
         []
 
 

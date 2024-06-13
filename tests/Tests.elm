@@ -1,7 +1,11 @@
 module Tests exposing (..)
 
-import Test exposing (..)
+import Date exposing (..)
 import Expect
+import Main exposing (..)
+import Test exposing (..)
+import Time exposing (..)
+
 
 
 -- Check out https://package.elm-lang.org/packages/elm-explorations/test/latest to learn more about testing in Elm!
@@ -9,14 +13,25 @@ import Expect
 
 all : Test
 all =
-    describe "A Test Suite"
-        [ test "Addition" <|
+    describe "something"
+        [ test "1st of June" <|
             \_ ->
-                Expect.equal 10 (3 + 7)
-        , test "String.left" <|
+                Expect.equal
+                    (takesTimeandReturnsRow (fromCalendarDate 2024 Time.Jun 1))
+                    1
+        , test "today baby" <|
             \_ ->
-                Expect.equal "a" (String.left 1 "abcdefg")
-        , test "This test should fail" <|
+                Expect.equal
+                    (takesTimeandReturnsRow (fromCalendarDate 2024 Time.Jun 6))
+                    2
+        , test "it's been.. one week" <|
             \_ ->
-                Expect.fail "failed as expected!"
+                Expect.equal
+                    (takesTimeandReturnsRow (fromCalendarDate 2024 Time.Jun 13))
+                    3
+        , test "august 1 2025" <|
+            \_ ->
+                Expect.equal
+                    (takesTimeandReturnsRow (fromCalendarDate 2024 Time.Aug 1))
+                    4
         ]
