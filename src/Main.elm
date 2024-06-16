@@ -218,9 +218,9 @@ aboluteTopOffset model =
             style "top" "-246px"
 
         fourthRow =
-            style "top" "-428px"
+            style "top" "-358px"
     in
-    thirdRow
+    fourthRow
 
 
 bottomContainer model =
