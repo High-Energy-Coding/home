@@ -280,19 +280,21 @@ type WhichRow
 
 aboluteTopOffset model =
     let
-        firstRow =
+        rowInteger =
+            takesTimeandReturnsRowPrivate model.zone model.time
+    in
+    case rowInteger of
+        1 ->
             style "top" "-16px"
 
-        secondRow =
+        2 ->
             style "top" "-154px"
 
-        thirdRow =
+        3 ->
             style "top" "-290px"
 
-        fourthRow =
+        _ ->
             style "top" "-358px"
-    in
-    firstRow
 
 
 bottomContainer model =
