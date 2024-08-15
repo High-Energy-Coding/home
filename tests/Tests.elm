@@ -29,6 +29,11 @@ all =
                 Expect.equal
                     (takesTimeandReturnsRow (fromCalendarDate 2024 Time.Jun 13))
                     3
+        , test "do'oh that one saturday " <|
+            \_ ->
+                Expect.equal
+                    (takesTimeandReturnsRow (fromCalendarDate 2024 Time.Aug 10))
+                    2
         , test "august 1 2025" <|
             \_ ->
                 Expect.equal

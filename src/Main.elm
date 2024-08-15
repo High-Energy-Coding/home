@@ -4,12 +4,12 @@ import Animator
 import Animator.Css
 import Animator.Inline
 import Browser
-import Date
+import Date exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Iso8601
 import Task
-import Time exposing (Month(..))
+import Time exposing (Weekday(..), Month(..), Posix, Zone, utc)
 
 
 
@@ -230,35 +230,52 @@ takesTimeandReturnsRow date =
 
 takesTimeandReturnsRowPrivate : Time.Zone -> Time.Posix -> Int
 takesTimeandReturnsRowPrivate zone time =
-    -- given a day
-    -- what weekDay is the first day of that month
-    -- from there, do math to get what row the given day should be on
-    -- Get the Day of the Week for the First Day of the Month
     let
+        -- Convert Posix time to Date
         date =
             Date.fromPosix zone time
 
-        year =
-            Date.year date
-
-        month =
-            Date.month date
-
-        day =
+        -- Get the day of the month
+        dayOfMonth =
             Date.day date
 
+        -- Get the first day of the month
         firstDayOfMonth =
-            Date.fromCalendarDate year month 1
+            Date.fromCalendarDate (Date.year date) (Date.month date) 1
 
+        -- Get the weekday of the first day of the month
         firstWeekday =
             Date.weekday firstDayOfMonth
 
-        firstWeekdayOffset =
-            weekdayOffset date
+        -- Map Weekday to an integer (Monday = 0, ..., Sunday = 6)
+        weekdayOffset2 =
+            case firstWeekday of
+                Mon ->
+                    0
 
-        -- weekdayOffset firstWeekday
+                Tue ->
+                    1
+
+                Wed ->
+                    2
+
+                Thu ->
+                    3
+
+                Fri ->
+                    4
+
+                Sat ->
+                    5
+
+                Sun ->
+                    6
+
+        -- Calculate the row number
+        row =
+            ((weekdayOffset2 + dayOfMonth - 1) // 7) + 1
     in
-    ((firstWeekdayOffset + day - 1) // 7) + 1
+    row
 
 
 
