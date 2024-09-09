@@ -34,6 +34,31 @@ all =
                 Expect.equal
                     (takesTimeandReturnsRow (fromCalendarDate 2024 Time.Aug 10))
                     2
+        , test "when sept ends" <|
+            \_ ->
+                Expect.equal
+                    (takesTimeandReturnsRow (fromCalendarDate 2024 Time.Sep 1))
+                    1
+        , test "when sept starts" <|
+            \_ ->
+                Expect.equal
+                    (takesTimeandReturnsRow (fromCalendarDate 2024 Time.Sep 3))
+                    1
+        , test "when sept 4" <|
+            \_ ->
+                Expect.equal
+                    (takesTimeandReturnsRow (fromCalendarDate 2024 Time.Sep 4))
+                    1
+        , test "when sept 7" <|
+            \_ ->
+                Expect.equal
+                    (takesTimeandReturnsRow (fromCalendarDate 2024 Time.Sep 7))
+                    1
+        , test "when sept 8" <|
+            \_ ->
+                Expect.equal
+                    (takesTimeandReturnsRow (fromCalendarDate 2024 Time.Sep 8))
+                    2
         , test "august 1 2025" <|
             \_ ->
                 Expect.equal

@@ -9,7 +9,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Iso8601
 import Task
-import Time exposing (Weekday(..), Month(..), Posix, Zone, utc)
+import Time exposing (Month(..), Posix, Weekday(..), Zone, utc)
 
 
 
@@ -303,16 +303,13 @@ aboluteTopOffset model =
     --case rowInteger of
     --    1 ->
     --        style "top" "-16px"
-
     --    2 ->
     --        style "top" "-154px"
-
     --    3 ->
     --        style "top" "-290px"
-
     --    _ ->
     --        style "top" "-358px"
-            style "top" "-16px"
+    style "top" "-154px"
 
 
 bottomContainer model =
