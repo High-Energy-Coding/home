@@ -309,7 +309,7 @@ aboluteTopOffset model =
     --        style "top" "-290px"
     --    _ ->
     --        style "top" "-358px"
-    style "top" "-154px"
+    style "top" "-290px"
 
 
 bottomContainer model =
