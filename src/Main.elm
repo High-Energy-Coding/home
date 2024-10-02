@@ -300,16 +300,18 @@ aboluteTopOffset model =
         rowInteger =
             takesTimeandReturnsRowPrivate model.zone model.time
     in
-    --case rowInteger of
-    --    1 ->
-    --        style "top" "-16px"
-    --    2 ->
-    --        style "top" "-154px"
-    --    3 ->
-    --        style "top" "-290px"
-    --    _ ->
-    --        style "top" "-358px"
-    style "top" "-290px"
+    case rowInteger of
+        1 ->
+            style "top" "-16px"
+
+        2 ->
+            style "top" "-154px"
+
+        3 ->
+            style "top" "-290px"
+
+        _ ->
+            style "top" "-358px"
 
 
 bottomContainer model =
