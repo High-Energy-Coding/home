@@ -1,4 +1,6 @@
+http://localhost:3000/?forceDayMode=true
 NODE_OPTIONS=--openssl-legacy-provider elm-app start
+
 
 # Elm App
 

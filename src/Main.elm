@@ -21,6 +21,7 @@ type alias Model =
     , time : Time.Posix
     , picAndTime : Animator.Timeline PicAndTime
     , whereGoesCalendar : Animator.Timeline WhereGoesCalendar
+    , forceDayMode : Bool
     }
 
 
@@ -66,13 +67,14 @@ animator =
             )
 
 
-init : () -> ( Model, Cmd Msg )
-init _ =
+init : Bool -> ( Model, Cmd Msg )
+init forceDayMode =
     ( Model
         Time.utc
         (Time.millisToPosix 0)
         (Animator.init TimeOnRight)
         (Animator.init CalendarOnBottom)
+        forceDayMode
     , Task.perform AdjustTimeZone Time.here
     )
 
@@ -157,7 +159,7 @@ decideDayOrNight model =
         hour =
             Time.toHour model.zone model.time
     in
-    if hour > 20 || hour < 5 then
+    if not model.forceDayMode && hour > 20 || hour < 5 then
         nightTime model
 
     else
@@ -419,7 +421,7 @@ subscriptions model =
 ---- PROGRAM ----
 
 
-main : Program () Model Msg
+main : Program Bool Model Msg
 main =
     Browser.element
         { view = view
