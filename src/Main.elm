@@ -204,7 +204,7 @@ daytime model =
 
 
 topContainer model =
-    [ div [ class "cal-container", aboluteTopOffset model ]
+    [ div [ class "cal-container", aboluteTopOffsetBandAid model ]
         [ googleCalendarIframe
         ]
     ]
@@ -295,6 +295,10 @@ type WhichRow
     | SecondRow
     | ThirdRow
     | FourthRow
+
+
+aboluteTopOffsetBandAid _ =
+    style "top" "-154px"
 
 
 aboluteTopOffset model =
