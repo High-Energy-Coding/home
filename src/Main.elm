@@ -196,7 +196,7 @@ daytime model =
                         Animator.Css.xy { x = 0, y = 0 }
         ]
         [ class "bottom-container"
-        , style "background-image" """url("trying.png")"""
+        , style "background-image" """url("boys_night.png")"""
         ]
       <|
         bottomContainer model
@@ -298,7 +298,7 @@ type WhichRow
 
 
 aboluteTopOffsetBandAid _ =
-    style "top" "-154px"
+    style "top" "-290px"
 
 
 aboluteTopOffset model =
