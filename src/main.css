@@ -116,9 +116,10 @@ img {
   align-items: center;
   width: 25%;
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 16px;
+  bottom: -16px;
 }
+
 .night-time {
   display: flex;
   justify-content: center;

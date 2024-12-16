@@ -196,7 +196,7 @@ daytime model =
                         Animator.Css.xy { x = 0, y = 0 }
         ]
         [ class "bottom-container"
-        , style "background-image" """url("boys_night.png")"""
+        , style "background-image" """url("sick_day.png")"""
         ]
       <|
         bottomContainer model
