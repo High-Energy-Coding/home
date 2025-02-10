@@ -1,4 +1,4 @@
-module Main exposing (..)
+port module Main exposing (..)
 
 import Animator
 import Animator.Css
@@ -10,6 +10,9 @@ import Html.Attributes exposing (..)
 import Iso8601
 import Task
 import Time exposing (Month(..), Posix, Weekday(..), Zone, utc)
+
+
+port playVideo : () -> Cmd msg
 
 
 
@@ -46,10 +49,6 @@ type alias LastTopBottomFlipAnimator =
 type PicAndTime
     = TimeOnRight
     | TimeOnLeft
-
-
-type alias AbleToSwitch =
-    Bool
 
 
 animator : Animator.Animator Model
@@ -120,7 +119,7 @@ update msg model =
             ( { model
                 | whereGoesCalendar = updateWhereGoesCalendar model
               }
-            , Cmd.none
+            , playVideo ()
             )
 
 
@@ -195,11 +194,16 @@ daytime model =
                     CalendarOnTop ->
                         Animator.Css.xy { x = 0, y = 0 }
         ]
-        [ class "bottom-container"
-        , style "background-image" """url("sick_day.png")"""
-        ]
+        [ class "bottom-container" ]
       <|
-        bottomContainer model
+        [ video
+            [ src "https://s3.us-east-2.amazonaws.com/vondysolutions.com/monster+jam.mp4"
+            , attribute "autoplay" "true"
+            , attribute "muted" "true"
+            ]
+            []
+        ]
+            ++ bottomContainer model
     ]
 
 
@@ -370,26 +374,6 @@ timeView model =
             [ span [] [ text hour ]
             , span [] [ text ":" ]
             , span [] [ text minute ]
-            ]
-        ]
-
-
-moanaWideBottom =
-    div [ class "picture bottom-half" ] [ boys ]
-
-
-boys =
-    div [ class "boys", style "background-image" """url("boys4.png")""" ]
-        []
-
-
-moanaWideBottomPrevious =
-    div [ class "moana", style "background-image" """url("moana.jpeg")""" ]
-        [ div [ class "quote" ]
-            [ h1 [] [ text "I will carry you here in my heart," ]
-            , h1 [] [ text "you'll remind me." ]
-            , h1 [] [ text "That come what may" ]
-            , h1 [] [ text "I know the way." ]
             ]
         ]
 
