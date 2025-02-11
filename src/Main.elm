@@ -74,7 +74,10 @@ init forceDayMode =
         (Animator.init TimeOnRight)
         (Animator.init CalendarOnBottom)
         forceDayMode
-    , Task.perform AdjustTimeZone Time.here
+    , Cmd.batch
+        [ playVideo ()
+        , Task.perform AdjustTimeZone Time.here
+        ]
     )
 
 
@@ -198,8 +201,9 @@ daytime model =
       <|
         [ video
             [ src "https://s3.us-east-2.amazonaws.com/vondysolutions.com/monster+jam.mp4"
-            , attribute "autoplay" "true"
-            , attribute "muted" "true"
+            , attribute "autoplay" ""
+            , attribute "muted" ""
+            , attribute "playsinline" ""
             ]
             []
         ]
