@@ -20,6 +20,8 @@ var app = Elm.Main.init({
 // JavaScript handler for the playVideo port
 app.ports.playVideo.subscribe(function() {
     var videoElement = document.querySelector("video");
-    videoElement.muted = true;
-    videoElement.play();
+    if (videoElement) {
+        videoElement.muted = true;
+        videoElement.play();
+    }
 });
