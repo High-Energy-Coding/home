@@ -218,38 +218,13 @@ topContainer model =
     ]
 
 
-takesTimeandReturnsRow : Date.Date -> Int
+takesTimeandReturnsRow : Date -> Int
 takesTimeandReturnsRow date =
     let
-        zone =
-            Time.utc
-
-        isoString =
-            Date.toIsoString date
-
-        time =
-            case Iso8601.toTime isoString of
-                Result.Ok convertedTime ->
-                    convertedTime
-
-                Result.Err reason ->
-                    Time.millisToPosix 0
-    in
-    takesTimeandReturnsRowPrivate zone time
-
-
-takesTimeandReturnsRowPrivate : Time.Zone -> Time.Posix -> Int
-takesTimeandReturnsRowPrivate zone time =
-    let
-        -- Convert Posix time to Date
-        date =
-            Date.fromPosix zone time
-
-        -- Get the day of the month
         dayOfMonth =
             Date.day date
 
-        -- Get the first day of the month
+        -- Get the Date object for the first day of the current date's month
         firstDayOfMonth =
             Date.fromCalendarDate (Date.year date) (Date.month date) 1
 
@@ -257,45 +232,43 @@ takesTimeandReturnsRowPrivate zone time =
         firstWeekday =
             Date.weekday firstDayOfMonth
 
-        -- Map Weekday to an integer (Monday = 0, ..., Sunday = 6)
-        weekdayOffset2 =
+        -- e.g., Time.Mon, Time.Tue, etc.
+        -- Calculate the offset based on a Sunday-starting week
+        -- Sunday = 0, Monday = 1, ..., Saturday = 6
+        -- This represents how many days the first day of the month is offset
+        -- from the start of the week (Sunday) in the calendar grid.
+        sundayStartOffset =
             case firstWeekday of
-                Mon ->
+                Time.Sun ->
                     0
 
-                Tue ->
+                Time.Mon ->
                     1
 
-                Wed ->
+                Time.Tue ->
                     2
 
-                Thu ->
+                Time.Wed ->
                     3
 
-                Fri ->
+                Time.Thu ->
                     4
 
-                Sat ->
+                Time.Fri ->
                     5
 
-                Sun ->
+                Time.Sat ->
                     6
 
         -- Calculate the row number
+        -- (sundayStartOffset + dayOfMonth - 1) gives the 0-indexed day position
+        -- in a grid where rows start on Sunday.
+        -- Integer division by 7 gives the 0-indexed week.
+        -- Add 1 to make it a 1-indexed row number.
         row =
-            ((weekdayOffset2 + dayOfMonth - 1) // 7) + 1
+            ((sundayStartOffset + dayOfMonth - 1) // 7) + 1
     in
     row
-
-
-
--- never 5th or 6th row.
---
-
-
-weekdayOffset : Date.Date -> Int
-weekdayOffset date =
-    Date.weekdayNumber date
 
 
 type WhichRow
@@ -311,8 +284,11 @@ aboluteTopOffsetBandAid _ =
 
 aboluteTopOffset model =
     let
+        date =
+            Date.fromPosix model.zone model.time
+
         rowInteger =
-            takesTimeandReturnsRowPrivate model.zone model.time
+            takesTimeandReturnsRow date
     in
     case rowInteger of
         1 ->
