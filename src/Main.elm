@@ -1,4 +1,4 @@
-port module Main exposing (..)
+module Main exposing (..)
 
 import Animator
 import Animator.Css
@@ -10,9 +10,6 @@ import Html.Attributes exposing (..)
 import Iso8601
 import Task
 import Time exposing (Month(..), Posix, Weekday(..), Zone, utc)
-
-
-port playVideo : () -> Cmd msg
 
 
 
@@ -82,10 +79,7 @@ init flags =
         (Animator.init CalendarOnBottom)
         flags.forceDayMode
         flags.kioskToken
-    , Cmd.batch
-        [ playVideo ()
-        , Task.perform AdjustTimeZone Time.here
-        ]
+    , Task.perform AdjustTimeZone Time.here
     )
 
 
@@ -130,7 +124,7 @@ update msg model =
             ( { model
                 | whereGoesCalendar = updateWhereGoesCalendar model
               }
-            , playVideo ()
+            , Cmd.none
             )
 
 
@@ -207,14 +201,7 @@ daytime model =
         ]
         [ class "bottom-container" ]
       <|
-        [ video
-            [ src "https://s3.us-east-2.amazonaws.com/vondysolutions.com/monster+jam.mp4"
-            , attribute "autoplay" ""
-            , attribute "muted" ""
-            , attribute "playsinline" ""
-            ]
-            []
-        ]
+        kioskBottom model
             ++ bottomContainer model
     ]
 
@@ -224,24 +211,19 @@ topContainer model =
         [ googleCalendarIframe
         ]
     ]
-        ++ kioskOverlay model
 
 
-kioskOverlay model =
+kioskBottom model =
     if model.kioskToken == "" then
         []
 
     else
-        [ div [ class "kiosk-overlay" ]
-            [ iframe
-                [ src ("https://readtomerecordings.com/display/kiosk?token=" ++ model.kioskToken)
-                , style "border" "none"
-                , style "width" "100%"
-                , style "height" "100%"
-                , style "border-radius" "12px"
-                ]
-                []
+        [ iframe
+            [ src ("https://readtomerecordings.com/display/kiosk?token=" ++ model.kioskToken)
+            , class "kiosk-bottom"
+            , style "border" "none"
             ]
+            []
         ]
 
 

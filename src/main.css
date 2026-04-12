@@ -48,16 +48,12 @@ img {
   position: absolute;
   transform: scale(1.01, 1);
 }
-.kiosk-overlay {
+.kiosk-bottom {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 340px;
-  height: 160px;
-  z-index: 2;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .top-container::after {
@@ -175,9 +171,3 @@ img {
   color: white;
 }
 
-video {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  object-position: 50% 15%;
-}
