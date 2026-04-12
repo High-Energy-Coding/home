@@ -19,12 +19,19 @@ port playVideo : () -> Cmd msg
 ---- MODEL ----
 
 
+type alias Flags =
+    { forceDayMode : Bool
+    , kioskToken : String
+    }
+
+
 type alias Model =
     { zone : Time.Zone
     , time : Time.Posix
     , picAndTime : Animator.Timeline PicAndTime
     , whereGoesCalendar : Animator.Timeline WhereGoesCalendar
     , forceDayMode : Bool
+    , kioskToken : String
     }
 
 
@@ -66,14 +73,15 @@ animator =
             )
 
 
-init : Bool -> ( Model, Cmd Msg )
-init forceDayMode =
+init : Flags -> ( Model, Cmd Msg )
+init flags =
     ( Model
         Time.utc
         (Time.millisToPosix 0)
         (Animator.init TimeOnRight)
         (Animator.init CalendarOnBottom)
-        forceDayMode
+        flags.forceDayMode
+        flags.kioskToken
     , Cmd.batch
         [ playVideo ()
         , Task.perform AdjustTimeZone Time.here
@@ -216,6 +224,25 @@ topContainer model =
         [ googleCalendarIframe
         ]
     ]
+        ++ kioskOverlay model
+
+
+kioskOverlay model =
+    if model.kioskToken == "" then
+        []
+
+    else
+        [ div [ class "kiosk-overlay" ]
+            [ iframe
+                [ src ("https://readtomerecordings.com/display/kiosk?token=" ++ model.kioskToken)
+                , style "border" "none"
+                , style "width" "100%"
+                , style "height" "100%"
+                , style "border-radius" "12px"
+                ]
+                []
+            ]
+        ]
 
 
 takesTimeandReturnsRow : Date -> Int
@@ -389,7 +416,7 @@ subscriptions model =
 ---- PROGRAM ----
 
 
-main : Program Bool Model Msg
+main : Program Flags Model Msg
 main =
     Browser.element
         { view = view

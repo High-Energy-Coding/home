@@ -4,10 +4,11 @@ import * as serviceWorker from './serviceWorker';
 
 const params = new URLSearchParams(window.location.search);
 const forceDayMode = params.get('forceDayMode') === 'true';
+const kioskToken = params.get('kioskToken') || '';
 
 var app = Elm.Main.init({
   node: document.getElementById('root'),
-  flags: forceDayMode
+  flags: { forceDayMode: forceDayMode, kioskToken: kioskToken }
 });
 
 // If you want your app to work offline and load faster, you can change
