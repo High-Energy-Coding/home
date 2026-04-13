@@ -163,7 +163,7 @@ decideDayOrNight model =
         hour =
             Time.toHour model.zone model.time
     in
-    if not model.forceDayMode && hour > 20 || hour < 5 then
+    if not model.forceDayMode && hour < 5 then
         nightTime model
 
     else
