@@ -201,8 +201,19 @@ daytime model =
         ]
         [ class "bottom-container" ]
       <|
-        kioskBottom model
-            ++ bottomContainer model
+        [ div [ class "bottom-split" ]
+            (kioskBottom model
+                ++ [ div [ class "photo-side" ]
+                        [ img
+                            [ src "/photos/family.jpg"
+                            , class "family-photo"
+                            ]
+                            []
+                        , timeView model
+                        ]
+                   ]
+            )
+        ]
     ]
 
 
@@ -314,7 +325,7 @@ aboluteTopOffset model =
 
 
 bottomContainer model =
-    [ timeView model ]
+    []
 
 
 to12Hour : Int -> Int
